@@ -1,33 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/screens/my_home_page.dart';
 
 void main() {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(color: Colors.purple),
-         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [ 
-            Image(image:AssetImage("assets/images/mayuri download.jpeg")),  
-            Center(
-              child: Padding( 
-                padding: EdgeInsets.all(8.0),
-                child: Text('Bankai!',
-                style: TextStyle( color: Colors.orange, fontSize: 39)),
-              ),
-            ),
-          ],
-        ),
+      title: "my First App",
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
       ),
-    ),
+      home: const MyHomePage(),
     );
   }
 }
