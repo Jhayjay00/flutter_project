@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -8,11 +10,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+List<Widget> imageList = [
+  Image.asset('assets/images/Bar.webp'),
+  Image.asset('assets/images/cat.jpeg'),
+  Image.asset('assets/images/eye.jpeg'),
+  Image.asset('assets/images/girl.jpeg'),
+  Image.asset('assets/images/ku.jpg'),
+  Image.asset('assets/images/pe.jpeg'),
+];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: Color.fromARGB(255, 212, 10, 169),
         title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -32,33 +44,40 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       drawer: Drawer(),
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.blue,
-          image: DecorationImage(
-            image: AssetImage('assets/images/mayuri.jpeg'),
-            scale: 0.1,
-            alignment: Alignment.topCenter,
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.count(
+          childAspectRatio: 1.3,
+          shrinkWrap: true,
+          crossAxisCount: 2,
+        children:  List.generate(6, (index){
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              imageList[index],
+            ],
+          );
+        }
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(items: [
+      ),
+      bottomNavigationBar: BottomNavigationBar(items: const [
         BottomNavigationBarItem(
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.purple,
             icon: Icon(Icons.home),
             label: 'Home'),
         BottomNavigationBarItem(
-            backgroundColor: Colors.green,
-            icon: Icon(Icons.home),
-            label: 'Home'),
+            backgroundColor: Colors.purple,
+            icon: Icon(Icons.search),
+            label: 'Search'),
         BottomNavigationBarItem(
-            backgroundColor: Colors.green,
-            icon: Icon(Icons.home),
-            label: 'Home'),
+            backgroundColor: Colors.purple,
+            icon: Icon(Icons.settings),
+            label: 'Shikai'),
         BottomNavigationBarItem(
-            backgroundColor: Colors.green,
-            icon: Icon(Icons.home),
-            label: 'Home'),
+            backgroundColor: Colors.purple,
+            icon: Icon(Icons.person),
+            label: 'Shinigami'),
       ]),
     );
   }
