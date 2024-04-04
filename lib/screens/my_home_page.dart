@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -10,18 +11,64 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-List<Widget> imageList = [
-  Image.asset('assets/images/Bar.webp'),
-  Image.asset('assets/images/cat.jpeg'),
-  Image.asset('assets/images/eye.jpeg'),
-  Image.asset('assets/images/girl.jpeg'),
-  Image.asset('assets/images/ku.jpg'),
-  Image.asset('assets/images/pe.jpeg'),
-];
-
   @override
   Widget build(BuildContext context) {
+
+List<String> imageList =[
+  'assets/images/Bar.webp',
+  'assets/images/cat.jpeg',
+  'assets/images/eye.jpeg',
+  'assets/images/girl.jpeg',
+  'assets/images/ku.jpg',
+  'assets/images/pe.jpeg'
+
+];
+
+List<String> imageTitle=[
+  'Barragan',
+  'Grimjow',
+  'Rose',
+  'Halibel',
+  'Tosen',
+  'Szayel'
+  
+];
+
+double Width = MediaQuery.of(context).size.width;
+double Height = MediaQuery.of(context).size.height;
+
+
+List<Widget> gridstuff = List.generate(6, (index) {
+    return Container(
+      width: Width,
+      height: Height,
+      decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(4),
+      image: DecorationImage(
+        image: AssetImage(imageList[index]),
+        fit: BoxFit.cover,
+      ),
+      ),
+      child: Center(
+        child: Text(imageTitle[index], style:TextStyle(
+          color: Color.fromARGB(255, 150, 113, 113),
+          fontSize: 34,
+          fontWeight: FontWeight.bold,
+          shadows: [
+              Shadow(
+                blurRadius: 5,
+                color: Colors.black.withOpacity(0.5),
+                offset: Offset(5, 5),
+              ),
+          ],
+        
+          ),
+        ),
+      ),
+  );
+});
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 212, 10, 169),
@@ -29,7 +76,7 @@ List<Widget> imageList = [
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Bankai!!',
+              'Arrancar',
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
             SizedBox(
@@ -44,24 +91,31 @@ List<Widget> imageList = [
         ),
       ),
       drawer: Drawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.count(
-          childAspectRatio: 1.3,
-          shrinkWrap: true,
-          crossAxisCount: 2,
-        children:  List.generate(6, (index){
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              imageList[index],
-            ],
-          );
-        }
+      body: 
+      Container(
+        decoration: BoxDecoration(
+        color: Colors.black,
+          ),
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisExtent: 240,
+            ),
+            itemCount: gridstuff.length,
+            itemBuilder: (BuildContext context, int index){
+              return Column(
+                children: [
+                  Container(height:210,child: gridstuff[index]),
+                ],
+              );
+            }),
         ),
-      ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(items: const [
+
+
+
+      bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: true,
+        items: const [
         BottomNavigationBarItem(
             backgroundColor: Colors.purple,
             icon: Icon(Icons.home),
