@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -51,7 +50,7 @@ List<Widget> gridstuff = List.generate(6, (index) {
       ),
       child: Center(
         child: Text(imageTitle[index], style:TextStyle(
-          color: Color.fromARGB(255, 150, 113, 113),
+          color: Color.fromARGB(255, 13, 20, 2),
           fontSize: 34,
           fontWeight: FontWeight.bold,
           shadows: [
@@ -69,10 +68,10 @@ List<Widget> gridstuff = List.generate(6, (index) {
 });
 
 
-    return Scaffold(
+     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 212, 10, 169),
-        title: const Row(
+        backgroundColor: Colors.red,
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
@@ -82,15 +81,57 @@ List<Widget> gridstuff = List.generate(6, (index) {
             SizedBox(
               width: 120,
             ),
-            ElevatedButton(
-              onPressed: null,
+            TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Alert'),
+                        content: Text('Bankai Allowed.'),
+                        actions: [
+                          TextButton(
+                            child: Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+                      );
+                    });
+              },
               child: Icon(Icons.notification_add, color: Colors.black),
             ),
             Icon(Icons.settings),
           ],
         ),
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+          child: ListView(
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            onTap: () {
+              Navigator.pushNamed(context, '/');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Profile'),
+            onTap: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+          ),
+        ],
+      )),
       body: 
       Container(
         decoration: BoxDecoration(
@@ -115,6 +156,7 @@ List<Widget> gridstuff = List.generate(6, (index) {
 
       bottomNavigationBar: BottomNavigationBar(
         showUnselectedLabels: true,
+        currentIndex: 0,
         items: const [
         BottomNavigationBarItem(
             backgroundColor: Colors.purple,
@@ -132,7 +174,21 @@ List<Widget> gridstuff = List.generate(6, (index) {
             backgroundColor: Colors.purple,
             icon: Icon(Icons.person),
             label: 'Shinigami'),
-      ]),
+     ],
+        onTap: (int index) {
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, '/');
+              break;
+            case 2:
+              Navigator.pushNamed(context, '/settings');
+              break;
+            case 3:
+              Navigator.pushNamed(context, '/profile');
+              break;
+          }
+        },
+      ),
     );
   }
 }
